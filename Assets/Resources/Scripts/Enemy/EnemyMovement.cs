@@ -52,7 +52,7 @@ public class EnemyMovement : MonoBehaviour
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		if (!this._stayStill && _Character != null)
+		if (!this._stayStill && _Character != null && GameManager.Instance.GameState == GameManager.GameStatus.Playing)
 	    {
 			_Character.Move(this._randomWalkingDirection.normalized * Time.deltaTime * Speed);
 	    }   
