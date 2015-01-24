@@ -17,9 +17,12 @@ public class GameManager : MonoBehaviour {
 		_instance = this;
 	}
 
+	// Player Reference
+	public PlayerStatus Player;
+
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame
