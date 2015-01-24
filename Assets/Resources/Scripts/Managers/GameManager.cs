@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour {
 		// Avoid this class destruction when in stage transition
 		DontDestroyOnLoad (this.gameObject);
 
+		// Initialize UI
+		UIManager.Instance.Initialize ();
+
 		// Initialize player
 		Player = FindObjectOfType<PlayerStatus> ();
 		Player.Initialize ();

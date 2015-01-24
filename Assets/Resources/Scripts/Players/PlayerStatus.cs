@@ -45,6 +45,11 @@ public class PlayerStatus : MonoBehaviour
 		this._attackController.Initialize ();
 	}
 
+	public SecondaryPlayer[] GetSecondaryPlayers()
+	{
+		return _attackController.holdedPlayers.ToArray ();
+	}
+
     void AddToTurboSpeed(float value)
     {
         this._turboSpeed += Mathf.Min(value, MaxTurboSpeed);
