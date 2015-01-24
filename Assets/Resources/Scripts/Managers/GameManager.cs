@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour {
 	public PlayerStatus Player;
 	public PlayerCamera PlayerCamera;
 
+	// Game information
+	public GameStatus GameState = GameStatus.Playing; // Current Game Status
+
 	// Use this for initialization
 	void Start () {
 
@@ -34,5 +37,14 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	// Game Status
+	public enum GameStatus
+	{
+		Unstarted,
+		Playing,
+		Ended,
+		Paused
 	}
 }
