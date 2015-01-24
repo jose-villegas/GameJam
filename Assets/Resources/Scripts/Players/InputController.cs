@@ -55,7 +55,7 @@ public class InputController : MonoBehaviour {
 
 		// Catch input
 		m_Move          = Input.GetKey(MouseClick);
-		m_ThrowPLayer	= Input.GetKey (ThrowClick);
+		m_ThrowPLayer	= Input.GetKeyDown(ThrowClick);
 	}
 
 	/// <summary>
@@ -63,7 +63,7 @@ public class InputController : MonoBehaviour {
 	/// </summary>
 	void AttackInput()
 	{
-		if (m_Attack)
+		if (m_ThrowPLayer)
 			m_Attack.ThrowSecondaryPlayer (new Vector3 (m_mouseWorldPos.x, 0, m_mouseWorldPos.z));
 	}
 

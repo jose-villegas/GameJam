@@ -37,6 +37,12 @@ public class AttackController : MonoBehaviour {
 	/// <param name="targetWorldPosition">Target world position.</param>
 	public void ThrowSecondaryPlayer(Vector3 targetWorldPosition)
 	{
-		
+		if (holdedPlayers.Count <= 0)
+			return;
+
+		// Remove last player
+		SecondaryPlayer playerToThrow = holdedPlayers [holdedPlayers.Count - 1]; 
+		holdedPlayers.RemoveAt(holdedPlayers.Count - 1);
+
 	}
 }
