@@ -6,11 +6,11 @@ public class PlayerStatus : MonoBehaviour
 {
     private float _health;
 
+    // Player health constrinas
     public float MaxHealth = 1.0f;
     public float MinHealth = 0.0f;
-    public float Speed = 1.0f;
 
-    public List<StatusBehaviour> PlayerStatuses;
+    public float Speed = 1.0f;
 
     // Use this for initialization
     private void Start()
@@ -18,15 +18,22 @@ public class PlayerStatus : MonoBehaviour
         this._health = this.MaxHealth;
     }
 
-    private InputController _input;
+	private InputController _inputController;
+	private MovementController _movementController;
 
 	// Use this for initialization
 	public void Initialize() {
-		// Get player controllers references
-		_input = GetComponent<InputController> ();
+        // Get movement controller
+        this._movementController = GetComponent<MovementController>();
 
 		// Initialize player contollers
-		_input.Initialize ();
+        this._movementController.Initialize();
+
+        // Get player controllers references
+        this._inputController = GetComponent<InputController>();
+
+        // Initialize player contollers
+        this._inputController.Initialize(this._movementController);
 	}
 
 	// Update is called once per frame
