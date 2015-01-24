@@ -22,7 +22,7 @@ public class BuildingBase : MonoBehaviour
     }
 
     // every building has a collection of current living residents
-    protected List<SecondaryPlayer> Residents;
+	public List<SecondaryPlayer> Residents;
     // direct access to player status
     public PlayerStatus PlayerBonus;
     // buildings constrains
@@ -39,10 +39,6 @@ public class BuildingBase : MonoBehaviour
 	    this.Residents = new List<SecondaryPlayer>();
 	}
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public bool IsBuildingFull()
     {

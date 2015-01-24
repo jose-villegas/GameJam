@@ -18,6 +18,8 @@ public class EnemyMovement : MonoBehaviour
 
 	private CharacterController _Character;
 
+
+	private float InitialY;
     private void ChangeWalkingDirection()
     {
         // Assign a new random direction
@@ -46,7 +48,7 @@ public class EnemyMovement : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		_Character = GetComponent<CharacterController> ();
-
+		InitialY = transform.position.y;
         Invoke("ChangeWalkingDirection", MaxStayStillChangeFrequency * Random.Range(0.0f, 1.0f));
         Invoke("ChangeToStayStill", MaxStayStillChangeFrequency * Random.Range(0.0f, 1.0f));
 	}
@@ -56,6 +58,7 @@ public class EnemyMovement : MonoBehaviour
 		if (!DisableRandomMovement && !this.StayStill && _Character != null && GameManager.Instance.GameState == GameManager.GameStatus.Playing)
 	    {
 			_Character.Move(this.RandomWalkingDirection.normalized * Time.deltaTime * Speed);
+			transform.position = new Vector3(transform.position.x,InitialY,transform.position.z);
 	    }   
 	}
 }
