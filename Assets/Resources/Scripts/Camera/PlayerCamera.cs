@@ -21,7 +21,7 @@ public class PlayerCamera : MonoBehaviour {
 	private float m_CCameraScaleVel = 0;
 
 	// Use this for initialization
-	public void Start () {
+	public void Initialize() {
 		// Get player reference
 		m_targetPlayer = GameManager.Instance.Player;
 

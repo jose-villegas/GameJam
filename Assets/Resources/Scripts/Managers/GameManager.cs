@@ -19,10 +19,16 @@ public class GameManager : MonoBehaviour {
 
 	// Player Reference
 	public PlayerStatus Player;
+	public PlayerCamera PlayerCamera;
 
 	// Use this for initialization
 	void Start () {
-		
+
+		// Initialize player
+		Player.Initialize ();
+
+		// Initialize camera
+		PlayerCamera.Initialize ();
 	}
 	
 	// Update is called once per frame
