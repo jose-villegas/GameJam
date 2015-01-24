@@ -86,7 +86,6 @@ public class MovementController : MonoBehaviour {
 	/// <returns></returns>
 	public Vector3 GetTargetDirection(Vector3 TargetPos)
 	{
-		Debug.Log (TargetPos);
 		return TargetPos - transform.position;
 	}
 }

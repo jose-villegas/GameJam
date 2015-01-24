@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	// Stages to load
 	public string[] Stages = new string[0];
 	public string MainMenu = "Main Menu";
+	public int CurrentStage = 0;
 
 	// Game timer
 	public string CurrentTime							// Current Match time (For UI)
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour {
 	/// <summary>
 	/// Begins the current stage.
 	/// </summary>
-	public void BeginStage()
+	private void BeginStage()
 	{
 		// Begin stage timer
 		StopCoroutine("MatchTimer");
@@ -78,13 +79,25 @@ public class GameManager : MonoBehaviour {
 	/// Ends the game.
 	/// </summary>
 	/// <param name="reason">Reason why the game must end.</param>
-	public void EndGame()
+	public void EndStage()
 	{
 		// Stop Timer Coroutine
 		StopCoroutine("MatchTimer");
 		
 		// Set the end game flag
 		GameState = GameStatus.Ended;
+
+		// Summon next stage if this isn't last
+		if (CurrentStage < Stages.Length) {
+			// Update stage counter
+			CurrentStage++;
+		}
+		// If this is the last stage, end the game
+		else
+		{
+
+
+		}
 	}
 
 	/// <summary>
@@ -107,7 +120,7 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		// Match End due Time Runned Out
-		EndGame();
+		EndStage();
 	}
 
 	// Game Status
