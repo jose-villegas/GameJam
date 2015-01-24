@@ -25,13 +25,10 @@ public class BuildingBase : MonoBehaviour
     // Only for turbo speed buildings
     public float BonusSpeed = 1.0f;
 
-    // obtain player instance script
-    void Initialize()
-    {
-        this.PlayerBonus = GetComponent<PlayerStatus>();
-    }
+
     // Use this for initialization
-	void Start () {
+	public void Initialize (PlayerStatus status) {
+		this.PlayerBonus = status;
 	    this.Residents = new List<SecondaryPlayer>();
 	}
 
@@ -50,6 +47,9 @@ public class BuildingBase : MonoBehaviour
         if (this.Residents.Count >= this.MaxResidents) return;
 
         this.Residents.Add(newResident);
+
+		// Hide this resident
+		newResident.Hide (this.transform);
 
         // Depending on build type we assign the player status a current bonus
         if (BuildType == BuildingType.Defense)

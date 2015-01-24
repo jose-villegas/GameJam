@@ -31,12 +31,12 @@ public class AttackController : MonoBehaviour {
 	/// <param name="player">Player.</param>
 	public void holdNewSecondaryPlayer(SecondaryPlayer player)
 	{
+		if (holdedPlayers.Count + 1 > UIManager.Instance.CivilianButtons.Length)
+			return;
+
 		// Add player to the list
 		holdedPlayers.Add (player);
-
-		// Save the gameobject to the player
-		player.transform.parent = holdedPlayersParent;
-		player.gameObject.SetActive (false);
+		player.Hide (holdedPlayersParent);
 	}
 
 	/// <summary>
@@ -65,11 +65,24 @@ public class AttackController : MonoBehaviour {
 		Vector3 throwDirection = targetWorldPosition - playerToThrow.transform.position;
 
 		// Execute throw
+		Vector3 finalPosition = playerToThrow.transform.position + throwDirection.normalized * ThrowDistance;
+		Vector3 middlePosition = (InitialPosition + finalPosition) / 2.0f;
+		middlePosition.y += 2.0f;
+
+		// Do the tween
 		playerToThrow.gameObject.SetActive (true);
+		playerToThrow.transform.DOPath (new Vector3[] {
+						InitialPosition,
+						middlePosition,
+						finalPosition},
+						ThrowTime, PathType.CatmullRom, PathMode.Full3D,5)
+						.SetEase(ThrowEase)
+						.OnComplete(()=>RestoreThrowedPlayer(playerToThrow));
+		/*
 		playerToThrow.transform.DOMove (playerToThrow.transform.position + throwDirection.normalized * ThrowDistance,ThrowTime)
 							   .SetEase(ThrowEase)
 							   .OnComplete(()=>RestoreThrowedPlayer(playerToThrow));
-							
+		*/					
 
 	}
 

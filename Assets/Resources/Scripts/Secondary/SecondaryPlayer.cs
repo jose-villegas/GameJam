@@ -31,6 +31,13 @@ public class SecondaryPlayer : MonoBehaviour {
 		HelpSequence.Play ();
 	}
 
+	public void Hide(Transform newParent)
+	{
+		// Save the gameobject to the player
+		transform.parent = newParent;
+		gameObject.SetActive (false);
+	}
+
 	/// <summary>
 	/// Resets the player.
 	/// </summary>

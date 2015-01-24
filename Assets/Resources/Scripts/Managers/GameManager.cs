@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour {
 	public string MainMenu = "Main Menu";
 	public string ScoreScene = "Score Scene";
 	public int CurrentStage = 0;
+
+	// Buildings
+	public BuildingBase[] buildings;
 
 	// Game timer
 	public string CurrentTime							// Current Match time (For UI)
@@ -47,16 +51,26 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// Destroy this game object if this is the main menu
+		if (Application.loadedLevelName == MainMenu) {
+			Destroy(this.gameObject);
+			return;
+		}
 
 		// Avoid this class destruction when in stage transition
 		DontDestroyOnLoad (this.gameObject);
 
-		// Initialize UI
-		UIManager.Instance.Initialize ();
-
 		// Initialize player
 		Player = FindObjectOfType<PlayerStatus> ();
 		Player.Initialize ();
+
+		// Initialize this stage buildings
+		buildings = FindObjectsOfType<BuildingBase> ();
+		foreach(BuildingBase building in buildings)
+			building.Initialize(Player);
+
+		// Initialize UI
+		UIManager.Instance.Initialize ();
+
 
 		// Initialize camera
 		PlayerCamera.Initialize ();
