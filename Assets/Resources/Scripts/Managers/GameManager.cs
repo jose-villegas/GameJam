@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 
 	// Buildings
 	public BuildingBase[] buildings;
+	public List<BuildingBase> requiredBuildingsToWin = new List<BuildingBase> ();
 
 	// Game timer
 	public string CurrentTime							// Current Match time (For UI)
@@ -59,26 +60,12 @@ public class GameManager : MonoBehaviour {
 		// Avoid this class destruction when in stage transition
 		DontDestroyOnLoad (this.gameObject);
 
-		// Initialize player
-		Player = FindObjectOfType<PlayerStatus> ();
-		Player.Initialize ();
 
-		// Initialize this stage buildings
-		buildings = FindObjectsOfType<BuildingBase> ();
-		foreach(BuildingBase building in buildings)
-			building.Initialize(Player);
-
-		// Initialize UI
-		UIManager.Instance.Initialize ();
-
-
-		// Initialize camera
-		PlayerCamera.Initialize ();
 
 		// Begin game timer
 		BeginStage ();
 	}
-
+ 
 	/// <summary>
 	/// Raises the level was loaded event.
 	/// </summary>
@@ -96,6 +83,27 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	private void BeginStage()
 	{
+		// Initialize player
+		Player = FindObjectOfType<PlayerStatus> ();
+		Player.Initialize ();
+		
+		// Initialize this stage buildings
+		buildings = FindObjectsOfType<BuildingBase> ();
+		foreach(BuildingBase building in buildings)
+		{
+			building.Initialize(Player);
+			if(building.BuildType == BuildingBase.BuildingType.NoBonus)
+			{
+				requiredBuildingsToWin.Add(building);
+			}
+		}
+
+		// Initialize UI
+		UIManager.Instance.Initialize ();
+		
+		// Initialize camera
+		PlayerCamera.Initialize ();
+
 		// Begin stage timer
 		StopCoroutine("MatchTimer");
 		StartCoroutine("MatchTimer");

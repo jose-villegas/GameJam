@@ -77,7 +77,8 @@ public class AttackController : MonoBehaviour {
 						finalPosition},
 						ThrowTime, PathType.CatmullRom, PathMode.Full3D,5)
 						.SetEase(ThrowEase)
-						.OnComplete(()=>RestoreThrowedPlayer(playerToThrow));
+						.OnComplete(()=>RestoreThrowedPlayer(playerToThrow))
+						.OnRewind(()=>RestoreThrowedPlayer(playerToThrow));
 		/*
 		playerToThrow.transform.DOMove (playerToThrow.transform.position + throwDirection.normalized * ThrowDistance,ThrowTime)
 							   .SetEase(ThrowEase)

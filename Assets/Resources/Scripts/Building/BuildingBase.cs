@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class BuildingBase : MonoBehaviour
 {
@@ -77,6 +78,11 @@ public class BuildingBase : MonoBehaviour
             {
                 this.AddResident(collider.gameObject.GetComponent<SecondaryPlayer>());
             }
+			else
+			{
+				collider.gameObject.transform.DOPlayBackwards();
+			}
+
         }
     }
 }

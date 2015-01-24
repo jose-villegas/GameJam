@@ -24,9 +24,6 @@ public class PlayerCamera : MonoBehaviour {
 	public void Initialize() {
 		// Get player reference
 		m_targetPlayer = GameManager.Instance.Player;
-
-		// Initialize target position
-		UpdateTargetPosition();
 	}
 	
 	// Update is called once per frame
