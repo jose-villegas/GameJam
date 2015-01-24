@@ -21,12 +21,16 @@ public class PlayerDetection : MonoBehaviour
     private Vector3 directionToPlayer;
 
     private RaycastHit _sphereRay;
+
+	private float InitialY;
     // Use this for initialization
     private void Start()
     {
         // sphere ray cast layer
         this.PlayerMask = LayerMask.GetMask("Player");
         directionToPlayer = new Vector3();
+		InitialY = transform.position.y;
+
     }
 
     // Update is called once per frame
@@ -59,7 +63,8 @@ public class PlayerDetection : MonoBehaviour
             this._followingTimeToSpend = this.MaxPersecutionTime*Random.Range(0.0f, 1.0f);
             // get direction to player
             directionToPlayer = (_player.transform.position - this.transform.position).normalized;
-            directionToPlayer.y = 0.0f;
+			directionToPlayer.y = InitialY;
+
         }
     }
 }
