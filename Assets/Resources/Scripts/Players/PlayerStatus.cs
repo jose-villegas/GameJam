@@ -13,9 +13,20 @@ public class PlayerStatus : MonoBehaviour
     public List<StatusBehaviour> PlayerStatuses;
 
     // Use this for initialization
-	void Start ()
-	{
-	    this._health = this.MaxHealth;
+    private void Start()
+    {
+        this._health = this.MaxHealth;
+    }
+
+    private InputController _input;
+
+	// Use this for initialization
+	public void Initialize() {
+		// Get player controllers references
+		_input = GetComponent<InputController> ();
+
+		// Initialize player contollers
+		_input.Initialize ();
 	}
 
 	// Update is called once per frame
