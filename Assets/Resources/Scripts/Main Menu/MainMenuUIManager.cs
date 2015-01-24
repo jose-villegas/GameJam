@@ -13,6 +13,15 @@ public class MainMenuUIManager : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// Goes to game.
+	/// </summary>
+	/// <param name="choice">Choice.</param>
+	public void GoToGame(int choice)
+	{
+
+	}
+
+	/// <summary>
 	/// GW	
 	/// </summary>
 	public void GoToPreGameMenu()
