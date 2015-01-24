@@ -4,12 +4,15 @@ using System.Collections;
 public class InputController : MonoBehaviour {
 	// Player Controllers
 	private MovementController m_Movement;
+	private AttackController m_Attack;
 
 	// Gameplay Input listeners
 	private bool m_Move;
+	private bool m_ThrowPLayer;
 
 	// Gameplay Keys
 	public KeyCode MouseClick = KeyCode.Mouse0;
+	public KeyCode ThrowClick = KeyCode.Mouse1;
 
 	// Keyboard & Mouse variables
 	public LayerMask MouseLayer;			// Layer for mouse clics (Might be needed revisit this for the attack system)
@@ -22,9 +25,10 @@ public class InputController : MonoBehaviour {
 	private RaycastHit _hit;
 
 	// Use this for initialization
-	public void Initialize (MovementController movement) {
+	public void Initialize (MovementController movement, AttackController attack) {
 		// Set required player controllers
 		m_Movement = movement;
+		m_Attack = attack;
 
 		// Get player camera
 		m_Camera = GameManager.Instance.PlayerCamera;
@@ -37,6 +41,9 @@ public class InputController : MonoBehaviour {
 
 		// Execute movement input
 		MovementInput();
+
+		// Execute attack input
+		AttackInput ();
 	}
 
 
@@ -48,6 +55,16 @@ public class InputController : MonoBehaviour {
 
 		// Catch input
 		m_Move          = Input.GetKey(MouseClick);
+		m_ThrowPLayer	= Input.GetKey (ThrowClick);
+	}
+
+	/// <summary>
+	/// Attacks the input.
+	/// </summary>
+	void AttackInput()
+	{
+		if (m_Attack)
+			m_Attack.ThrowSecondaryPlayer (new Vector3 (m_mouseWorldPos.x, 0, m_mouseWorldPos.z));
 	}
 
 
