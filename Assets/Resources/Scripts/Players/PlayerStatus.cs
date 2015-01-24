@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 public class PlayerStatus : MonoBehaviour
 {
+    // defense status protects the user from the next enemy hit
+    private bool _defenseStatusActive = false;
+    // turbo speed status adds to the player add
+    private float _turboSpeed = 0.0f;
+    public float MaxTurboSpeed = 30.0f;
+
     private float _health;
 
     // Player health constrinas
     public float MaxHealth = 1.0f;
     public float MinHealth = 0.0f;
-
-    public float Speed = 1.0f;
 
     // Use this for initialization
     private void Start()
@@ -36,6 +40,16 @@ public class PlayerStatus : MonoBehaviour
         this._inputController.Initialize(this._movementController);
 	}
 
+    void AddToTurboSpeed(float value)
+    {
+        this._turboSpeed += Mathf.Min(value, MaxTurboSpeed);
+    }
+
+    float GetCurrentTurboSpeed()
+    {
+        return this._turboSpeed;
+    }
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -43,6 +57,12 @@ public class PlayerStatus : MonoBehaviour
 
     void ReduceHealth(float value)
     {
+        // defense status protects the player for the next incoming hit, then loses this status
+        if (this._defenseStatusActive)
+        {
+            this._defenseStatusActive = false; return;
+        }
+
         this._health = Mathf.Clamp(this._health - value, this.MinHealth, this.MaxHealth);
     }
 
