@@ -17,6 +17,24 @@ public class GameManager : MonoBehaviour {
 		_instance = this;
 	}
 
+	// Stages to load
+	public string[] Stages = new string[0];
+	public string MainMenu = "Main Menu";
+
+	// Game timer
+	public string CurrentTime							// Current Match time (For UI)
+	{
+		get
+		{
+			return Mathf.FloorToInt((MaxStageTime - m_currentTime)/60.0f).ToString("00")
+			+":" 
+			+Mathf.FloorToInt((MaxStageTime - m_currentTime)%60.0f).ToString("00");
+		}
+	}
+	private float m_currentTime = 0;				 	// Match Timer
+	[Range(1,1000)]
+	public float MaxStageTime	= 360.0f;				// Match max timer
+
 	// Player Reference
 	public PlayerStatus Player;
 	public PlayerCamera PlayerCamera;
@@ -26,17 +44,70 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		// Destroy this game object if this is the main menu
+
+		// Avoid this class destruction when in stage transition
+		DontDestroyOnLoad (this.gameObject);
 
 		// Initialize player
 		Player.Initialize ();
 
 		// Initialize camera
 		PlayerCamera.Initialize ();
+
+		// Begin game timer
+		BeginStage ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	/// <summary>
+	/// Begins the current stage.
+	/// </summary>
+	public void BeginStage()
+	{
+		// Begin stage timer
+		StopCoroutine("MatchTimer");
+		StartCoroutine("MatchTimer");
+	}
+
+	/// <summary>
+	/// Ends the game.
+	/// </summary>
+	/// <param name="reason">Reason why the game must end.</param>
+	public void EndGame()
+	{
+		// Stop Timer Coroutine
+		StopCoroutine("MatchTimer");
+		
+		// Set the end game flag
+		GameState = GameStatus.Ended;
+	}
+
+	/// <summary>
+	/// Match's Timer
+	/// </summary>
+	/// <returns>Match End.</returns>
+	IEnumerator MatchTimer()
+	{
+		// Timer Initialization
+		m_currentTime = 0;
+		// Match timer
+		while(m_currentTime < MaxStageTime)
+		{
+			// Check if the game is running
+			if(GameState == GameStatus.Playing)
+			{
+				m_currentTime += Time.deltaTime;
+			}
+			yield return null;
+		}
+		
+		// Match End due Time Runned Out
+		EndGame();
 	}
 
 	// Game Status

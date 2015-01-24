@@ -14,11 +14,13 @@ public class MovementController : MonoBehaviour {
 
 	// Character controller variables
 	private CharacterController m_CharController;
+	private CollisionController m_Collision;
 
 	// Use this for initialization
-	public void Initialize () {
+	public void Initialize (CollisionController collision) {
 		// Get Unity's character controller
 		m_CharController = GetComponent<CharacterController>();
+		m_Collision = collision;
 	}
 	
 	// Update is called once per frame
@@ -45,7 +47,8 @@ public class MovementController : MonoBehaviour {
 		
 		// Get the normalized player direction
 		m_MoveDirection = GetTargetDirection(m_TargetWorldPos).normalized;
-		
+		m_MoveDirection.y = 0;
+
 		// Check if the player can move to the desired position
 		//if(!m_Collision.canMoveTo(transform.position + m_MoveDirection * m_CharController.radius))return false;
 		
@@ -83,6 +86,7 @@ public class MovementController : MonoBehaviour {
 	/// <returns></returns>
 	public Vector3 GetTargetDirection(Vector3 TargetPos)
 	{
+		Debug.Log (TargetPos);
 		return TargetPos - transform.position;
 	}
 }

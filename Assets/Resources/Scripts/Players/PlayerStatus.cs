@@ -11,9 +11,15 @@ public class PlayerStatus : MonoBehaviour
     public float MaxTurboSpeed = 30.0f;
 
     private float _health;
+
     // Player health constrinas
     public float MaxHealth = 1.0f;
     public float MinHealth = 0.0f;
+
+	// Player Controllers
+	private InputController _inputController;
+	private MovementController _movementController;
+	private CollisionController _collisionController;
 
     // Use this for initialization
     private void Start()
@@ -21,22 +27,19 @@ public class PlayerStatus : MonoBehaviour
         this._health = this.MaxHealth;
     }
 
-	private InputController _inputController;
-	private MovementController _movementController;
+
 
 	// Use this for initialization
 	public void Initialize() {
         // Get movement controller
         this._movementController = GetComponent<MovementController>();
+		this._collisionController = GetComponent<CollisionController> ();
+		this._inputController = GetComponent<InputController>();
 
 		// Initialize player contollers
-        this._movementController.Initialize();
-
-        // Get player controllers references
-        this._inputController = GetComponent<InputController>();
-
-        // Initialize player contollers
-        this._inputController.Initialize(this._movementController);
+		this._movementController.Initialize(_collisionController);        
+		this._inputController.Initialize(this._movementController);
+		this._collisionController.Initialize ();
 	}
 
     void AddToTurboSpeed(float value)
