@@ -40,11 +40,16 @@ public class UIManager : MonoBehaviour {
 	public void UpdateCivilians()
 	{
 		// Get secondary players currently holded
-		SecondaryPlayer[] secondaryPlayer = GameManager.Instance.Player.GetSecondaryPlayers ();
+		SecondaryPlayer[] secondaryPlayers = GameManager.Instance.Player.GetSecondaryPlayers ();
 
-		int index;
+		int index = 0;
 		foreach (Button currentbutton in CivilianButtons) {
-		
+			// Refresh buttons
+			if(secondaryPlayers.Length > index)
+				currentbutton.interactable = true;
+			else
+				currentbutton.interactable = false;
+
 			// Update index
 			index++;
 		}
