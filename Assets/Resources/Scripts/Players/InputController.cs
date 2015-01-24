@@ -2,6 +2,15 @@
 using System.Collections;
 
 public class InputController : MonoBehaviour {
+	// Player Controllers
+	private MovementController m_Movement;
+
+	// Gameplay Input listeners
+	private bool m_Move;
+
+	// Gameplay Keys
+	public KeyCode MouseClick = KeyCode.Mouse0;
+
 	// Keyboard & Mouse variables
 	public LayerMask MouseLayer;			// Layer for mouse clics (Might be needed revisit this for the attack system)
 	private PlayerCamera m_Camera;
@@ -13,7 +22,10 @@ public class InputController : MonoBehaviour {
 	private RaycastHit _hit;
 
 	// Use this for initialization
-	public void Initialize () {
+	public void Initialize (MovementController movement) {
+		// Set required player controllers
+		m_Movement = movement;
+
 		// Get player camera
 		m_Camera = GameManager.Instance.PlayerCamera;
 	}
@@ -22,6 +34,9 @@ public class InputController : MonoBehaviour {
 	void Update () {
 		// Catch player input
 		CatchGamePlayInput();
+
+		// Execute movement input
+		MovementInput();
 	}
 
 
@@ -30,6 +45,21 @@ public class InputController : MonoBehaviour {
 	{
 		// Get mouse world position
 		m_mouseWorldPos = GetMouseWorldPos();			// In networking mode, just pass the X and Z arguments of this vector
+
+		// Catch input
+		m_Move          = Input.GetKey(MouseClick);
+	}
+
+
+	/// <summary>
+	/// Movement orders
+	/// </summary>
+	void MovementInput()
+	{ 
+		// Check if the movement key was pressed
+		if (m_Move)
+			// Try to move the character to the desired position
+			m_Movement.TryMove(m_mouseWorldPos.x,m_mouseWorldPos.z);
 	}
 
 
