@@ -5,15 +5,18 @@ using System.Collections;
 /// Collision controller.
 /// </summary>
 public class CollisionController : MonoBehaviour {
-	// Enemy collision layer
+	// Game collision layers
 	public LayerMask EnemyLayer;
+	public LayerMask CivilianLayer;
 
 	// Player references
 	private PlayerStatus m_Status;
+	private AttackController m_Attack;
 
 	// Use this for initialization
-	public void Initialize (PlayerStatus status) {
+	public void Initialize (PlayerStatus status,AttackController attack) {
 		m_Status = status;
+		m_Attack = attack;
 	}
 
 	/// <summary>
@@ -24,5 +27,12 @@ public class CollisionController : MonoBehaviour {
 		// Check if the collision is in the proper layer
 		if (EnemyLayer == (EnemyLayer | (1 << other.gameObject.layer)))
 			m_Status.ReduceHealth (1.0f);
+		else if (CivilianLayer == (CivilianLayer | (1 << other.gameObject.layer)))
+		{
+			SecondaryPlayer civilian = other.GetComponent<SecondaryPlayer>();
+			if(civilian != null)
+				m_Attack.holdNewSecondaryPlayer(civilian);
+
+		}
 	}
 }

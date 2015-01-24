@@ -8,10 +8,12 @@ using System.Collections.Generic;
 public class AttackController : MonoBehaviour {
 	// List of holded player
 	public List<SecondaryPlayer> holdedPlayers = new List<SecondaryPlayer>();
+	public Transform holdedPlayersParent;
 
 	// Use this for initialization
 	public void Initialize () {
-	
+		if (!holdedPlayersParent)
+			Debug.LogError ("Insert holded player parent transform");
 	}
 
 	/// <summary>
@@ -20,7 +22,13 @@ public class AttackController : MonoBehaviour {
 	/// <param name="player">Player.</param>
 	public void holdNewSecondaryPlayer(SecondaryPlayer player)
 	{
+		// Add player to the list
 		holdedPlayers.Add (player);
+
+		// Save the gameobject to the player
+		player.transform.parent = holdedPlayersParent;
+		player.transform.localPosition = Vector3.zero;
+		player.gameObject.SetActive (false);
 	}
 
 	/// <summary>
