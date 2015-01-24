@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	// Stages to load
 	public string[] Stages = new string[0];
 	public string MainMenu = "Main Menu";
+	public string ScoreScene = "Score Scene";
 	public int CurrentStage = 0;
 
 	// Game timer
@@ -59,10 +60,17 @@ public class GameManager : MonoBehaviour {
 		// Begin game timer
 		BeginStage ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	/// <summary>
+	/// Raises the level was loaded event.
+	/// </summary>
+	/// <param name="level">Level.</param>
+	void OnLevelWasLoaded(int level) {
+		// Only execute the initialization if this isnt the first map
+		if (CurrentStage > 0 && Application.loadedLevelName != ScoreScene) {
+			BeginStage();
+		}
+		
 	}
 
 	/// <summary>
@@ -91,12 +99,14 @@ public class GameManager : MonoBehaviour {
 		if (CurrentStage < Stages.Length) {
 			// Update stage counter
 			CurrentStage++;
+			// Load next stage
+			Application.LoadLevel(Stages[CurrentStage]);
 		}
 		// If this is the last stage, end the game
 		else
 		{
-
-
+			// Load score screen
+			Application.LoadLevel(ScoreScene);
 		}
 	}
 
