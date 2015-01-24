@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (this.gameObject);
 
 		// Initialize player
+		Player = FindObjectOfType<PlayerStatus> ();
 		Player.Initialize ();
 
 		// Initialize camera
