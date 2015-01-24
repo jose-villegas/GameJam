@@ -71,6 +71,10 @@ public class PlayerStatus : MonoBehaviour
         }
 
         this._health = Mathf.Clamp(this._health - value, this.MinHealth, this.MaxHealth);
+
+		// Check if the player is killed
+		if (_health <= 0f)
+			GameManager.Instance.EndGame ();
     }
 
     void RecoverHealth(float value)

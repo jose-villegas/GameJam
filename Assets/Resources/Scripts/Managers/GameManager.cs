@@ -106,9 +106,18 @@ public class GameManager : MonoBehaviour {
 		// If this is the last stage, end the game
 		else
 		{
-			// Load score screen
-			Application.LoadLevel(ScoreScene);
+			EndGame();
 		}
+	}
+
+	// End of the game and go to the score screen
+	public void EndGame()
+	{
+		// Set safety conrol flag
+		GameState = GameStatus.Ended;
+
+		// Load score screen
+		Application.LoadLevel(ScoreScene);
 	}
 
 	/// <summary>
