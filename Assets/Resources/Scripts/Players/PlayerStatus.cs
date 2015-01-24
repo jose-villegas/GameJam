@@ -11,7 +11,6 @@ public class PlayerStatus : MonoBehaviour
     public float MaxTurboSpeed = 30.0f;
 
     private float _health;
-
     // Player health constrinas
     public float MaxHealth = 1.0f;
     public float MinHealth = 0.0f;
