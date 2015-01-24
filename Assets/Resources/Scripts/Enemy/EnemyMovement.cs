@@ -51,7 +51,7 @@ public class EnemyMovement : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		if (!this._stayStill && _Character != null)
 	    {
 	        //this.transform.Translate(this._randomWalkingDirection * Time.deltaTime * Speed);
