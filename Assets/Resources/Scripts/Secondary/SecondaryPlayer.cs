@@ -27,6 +27,8 @@ public class SecondaryPlayer : MonoBehaviour {
 		float InitialLocalY = transform.localPosition.y;
 		HelpSequence.Append (transform.DOLocalMoveY (1.0f, 0.5f));
 		HelpSequence.Append (transform.DOLocalMoveY (InitialLocalY, 0.5f));
+		HelpSequence.AppendInterval (1.0f);
+		HelpSequence.PrependInterval (Random.Range (0.0f, 1.0f));
 		HelpSequence.SetLoops (-1);
 
 		StartHelpAnimationSequence ();
