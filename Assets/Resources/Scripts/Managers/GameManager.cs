@@ -13,11 +13,6 @@ public class GameManager : MonoBehaviour {
 	{
 		get{return _instance;}
 	}
-	GameManager()
-	{
-		_instance = this;
-	}
-
 	// Player Sprite
 	public Texture2D MALE;
 	public Texture2D MALE2;
@@ -60,6 +55,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		_instance = this;
 
 		// Avoid this class destruction when in stage transition
 		DontDestroyOnLoad (this.gameObject);

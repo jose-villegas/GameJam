@@ -30,15 +30,14 @@ public class InputController : MonoBehaviour {
 		m_Movement = movement;
 		m_Attack = attack;
 
-		// Get player camera
-		m_Camera = GameManager.Instance.PlayerCamera;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (GameManager.Instance == null || GameManager.Instance.GameState != GameManager.GameStatus.Playing)
 						return;
-
+		m_Camera = GameManager.Instance.PlayerCamera;
+		
 		// Catch player input
 		CatchGamePlayInput();
 

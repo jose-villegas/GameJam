@@ -13,7 +13,7 @@ public class PlayerCamera : MonoBehaviour {
 	public float CameraScaleSpeed = 0.3f;
 
 	// Target of the camera
-	private PlayerStatus m_targetPlayer; 	// Only for singleplayer 
+	public PlayerStatus m_targetPlayer; 	// Only for singleplayer 
 	private Vector3 m_targetPosition;
 
 	// Control variables
@@ -22,8 +22,6 @@ public class PlayerCamera : MonoBehaviour {
 
 	// Use this for initialization
 	public void Initialize() {
-		// Get player reference
-		m_targetPlayer = GameManager.Instance.Player;
 
 	}
 	
@@ -50,8 +48,13 @@ public class PlayerCamera : MonoBehaviour {
 	/// </summary>
 	private void UpdateTargetPosition()
 	{
+		if(GameManager.Instance.Player == null)
+		{
+			Debug.Log("CONIOOOOO");
+			return;
+		}
 		// Reset the position
-		m_targetPosition = m_targetPlayer.transform.position;
+		m_targetPosition = GameManager.Instance.Player.transform.position;
 		m_targetPosition += CameraOffset;
 	}
 	
