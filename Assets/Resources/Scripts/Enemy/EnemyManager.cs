@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour {
 		_instance = this;
 	}
 
-    void MultiplyEnemiesSpeed(float value)
+    public void MultiplyEnemiesSpeed(float value)
     {
         foreach (EnemyMovement enemy in EnemiesMovement)
         {
@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
-    void AddEnemiesSpeed(float value)
+    public void AddEnemiesSpeed(float value)
     {
         foreach (EnemyMovement enemy in EnemiesMovement)
         {

@@ -11,6 +11,9 @@ public class BuildingBase : MonoBehaviour
         TurboSpeed
     };
 
+    public LayerMask CitizensLayer;
+    public LayerMask FlyingCitizensLayer;
+
     // every building has a collection of current living residents
     protected List<SecondaryPlayer> Residents;
     // direct access to player status
@@ -22,6 +25,11 @@ public class BuildingBase : MonoBehaviour
     // Only for turbo speed buildings
     public float BonusSpeed = 1.0f;
 
+    // obtain player instance script
+    void Initialize()
+    {
+        this.PlayerBonus = GetComponent<PlayerStatus>();
+    }
     // Use this for initialization
 	void Start () {
 	    this.Residents = new List<SecondaryPlayer>();
@@ -57,5 +65,17 @@ public class BuildingBase : MonoBehaviour
     public void ClearBuilding()
     {
         this.Residents.Clear();
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (FlyingCitizensLayer == (FlyingCitizensLayer | (1 << collider.gameObject.layer)) ||
+            CitizensLayer == (CitizensLayer | (1 << collider.gameObject.layer)))
+        {
+            if (!this.IsBuildingFull())
+            {
+                this.AddResident(collider.gameObject.GetComponent<SecondaryPlayer>());
+            }
+        }
     }
 }
