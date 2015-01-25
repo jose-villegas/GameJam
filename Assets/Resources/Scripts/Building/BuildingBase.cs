@@ -56,7 +56,7 @@ public class BuildingBase : MonoBehaviour
 		// Hide this resident
 		newResident.Hide (this.transform);
 
-		audio.PlayOneShot (HostedEffect);
+		audio.PlayOneShot (HostedEffect,2.0f);
 
         // Depending on build type we assign the player status a current bonus
         if (BuildType == BuildingType.Defense)

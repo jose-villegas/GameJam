@@ -77,7 +77,6 @@ public class AttackController : MonoBehaviour {
 		// Do the tween
 		playerToThrow.gameObject.SetActive (true);
 		playerToThrow.transform.DOPath (new Vector3[] {
-						InitialPosition,
 						middlePosition,
 						finalPosition},
 						ThrowTime, PathType.CatmullRom, PathMode.Full3D,5)
