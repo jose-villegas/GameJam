@@ -51,7 +51,7 @@ public class EnemyMovement : MonoBehaviour
 	void Update () {
 	    if (!this._stayStill)
 	    {
-	        this.transform.Translate(this._randomWalkingDirection * Time.deltaTime);
+	        this.transform.Translate(this._randomWalkingDirection * Time.deltaTime * Speed);
 	    }   
 	}
 }
