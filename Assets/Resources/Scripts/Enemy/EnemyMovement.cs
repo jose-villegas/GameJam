@@ -17,6 +17,16 @@ public class EnemyMovement : MonoBehaviour
 
 	private CharacterController _Character;
 
+	public AudioClip detectsound;
+	public float RandomIntervalMIN = 10.0f;
+	public float RandomIntervalMAX = 20.0f;
+	IEnumerator RandomSound()
+	{
+		while (GameManager.Instance.GameState == GameManager.GameStatus.Playing) {
+			yield return new WaitForSeconds(Random.Range(RandomIntervalMIN,RandomIntervalMAX));
+			audio.PlayOneShot(detectsound);
+		}
+	}
 
 	private float InitialY;
 
@@ -47,6 +57,8 @@ public class EnemyMovement : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
+		StartCoroutine ("RandomSound");
+
 		_Character = GetComponent<CharacterController> ();
 		InitialY = transform.position.y;
         Invoke("ChangeWalkingDirection", MaxStayStillChangeFrequency * Random.Range(0.0f, 1.0f));

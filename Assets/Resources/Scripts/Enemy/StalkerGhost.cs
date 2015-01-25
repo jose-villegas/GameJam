@@ -18,11 +18,23 @@ public class StalkerGhost : MonoBehaviour {
     public float DistanceToPlayer;
     private GameObject Player;
 
+	public AudioClip detectsound;
+	public float RandomIntervalMIN = 10.0f;
+	public float RandomIntervalMAX = 20.0f;
+	IEnumerator RandomSound()
+	{
+		while (GameManager.Instance.GameState == GameManager.GameStatus.Playing) {
+			yield return new WaitForSeconds(Random.Range(RandomIntervalMIN,RandomIntervalMAX));
+			audio.PlayOneShot(detectsound);
+		}
+	}
+
     private float _initialY;
 
 	// Use this for initialization
 	void Start ()
 	{
+		StartCoroutine ("RandomSound");
         // save initial height
 	    _initialY = transform.position.y;
         // Start Randomizing movement
