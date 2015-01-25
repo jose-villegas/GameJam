@@ -69,10 +69,4 @@ public class PlayerDetection : MonoBehaviour
 
         }
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("collision");
-        if (this._startPersecution) _startPersecution = false;
-    }
 }
