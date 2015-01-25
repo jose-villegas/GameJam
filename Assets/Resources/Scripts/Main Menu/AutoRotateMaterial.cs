@@ -11,7 +11,7 @@ public class AutoRotateMaterial : MonoBehaviour {
 	IEnumerator ANIMATION()
 	{
 		int index = 0;
-		while(GameManager.Instance.GameState == GameManager.GameStatus.Playing)
+		while(true)
 		{
 			if(TEXTURES.Length > 0)
 			{

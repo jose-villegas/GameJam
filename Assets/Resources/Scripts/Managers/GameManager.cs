@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
 	public GameStatus GameState = GameStatus.Playing; // Current Game Status
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		_instance = this;
 
 		// Avoid this class destruction when in stage transition
@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour {
 		if (level > 0 && Application.loadedLevelName != ScoreScene) {
 			BeginStage();
 		}
+		else
+			Destroy(this.gameObject);
 	}
 
 	/// <summary>

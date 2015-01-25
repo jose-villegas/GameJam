@@ -47,7 +47,7 @@ public class SecondaryPlayer : MonoBehaviour {
 	/// </summary>
 	/// <returns>The do we do now.</returns>
 	IEnumerator WhatDoWeDoNow (){
-		while(GameManager.Instance.GameState != GameManager.GameStatus.Ended)
+		while(true)
 		{
 			yield return new WaitForSeconds (Random.Range(MinRandomTime,MaxRandomTime ));	
 			audio.PlayOneShot(WhatDoWeDoKnow);
