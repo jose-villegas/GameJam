@@ -16,7 +16,7 @@ public class ChargingChiguire : MonoBehaviour {
     public Vector3 RandomWalkingDirection;
     public bool StayStill = true;
 
-    public float StartFollowingDistance = 5.0f;
+    public float StartChargingDistance = 5.0f;
     public float DistanceToPlayer;
     public GameObject Player;
 
@@ -99,7 +99,7 @@ public class ChargingChiguire : MonoBehaviour {
     {
         DistanceToPlayer = (Player.transform.position - transform.position).sqrMagnitude;
 
-        if (DistanceToPlayer <= StartFollowingDistance * StartFollowingDistance && SetChargingDirection())
+        if (DistanceToPlayer <= StartChargingDistance * StartChargingDistance && SetChargingDirection())
         {
             // move to player position on detection
             _Character.Move(this._chargingDirection * Time.deltaTime * ChargingSpeed);
