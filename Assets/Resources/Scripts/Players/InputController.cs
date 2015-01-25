@@ -54,8 +54,16 @@ public class InputController : MonoBehaviour {
 		m_mouseWorldPos = GetMouseWorldPos();			// In networking mode, just pass the X and Z arguments of this vector
 
 		// Catch input
-		m_Move          = Input.GetKey(MouseClick);
-		m_ThrowPLayer	= Input.GetKeyDown(ThrowClick);
+		if(GameManager.Instance.GameState == GameManager.GameStatus.Playing)
+		{
+			m_Move          = Input.GetKey(MouseClick);
+			m_ThrowPLayer	= Input.GetKeyDown(ThrowClick);
+		}
+		else
+		{
+			m_Move			= false;
+			m_ThrowPLayer 	= false;
+		}
 	}
 
 	/// <summary>

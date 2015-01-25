@@ -51,7 +51,7 @@ public class AttackController : MonoBehaviour {
 		// Remove last player
 		SecondaryPlayer playerToThrow = holdedPlayers [holdedPlayers.Count - 1]; 
 		holdedPlayers.RemoveAt(holdedPlayers.Count - 1);
-		playerToThrow.ResetPlayer ();
+		playerToThrow.ResetParent ();
 		playerToThrow.gameObject.layer = ThrowLayer;
 
 		// Set initial throw position
