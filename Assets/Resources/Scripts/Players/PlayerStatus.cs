@@ -49,14 +49,20 @@ public class PlayerStatus : MonoBehaviour
 		// Initialize player contollers
 		this._movementController.Initialize(_collisionController);        
 		this._inputController.Initialize(this._movementController,this._attackController);
-		this._collisionController.Initialize (this);
+		this._collisionController.Initialize (this,_attackController);
 		this._attackController.Initialize ();
 	}
+
 
     public void AddToTurboSpeed(float value)
     {
         this._turboSpeed += Mathf.Min(value, MaxTurboSpeed);
     }
+
+	public SecondaryPlayer[] GetSecondaryPlayers()
+	{
+		return _attackController.holdedPlayers.ToArray ();
+	}
 
     public float GetCurrentTurboSpeed()
     {
