@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerDetection : MonoBehaviour
+public class PlayerDetectionShooting : MonoBehaviour
 {
     // sphere cast layer
     public LayerMask PlayerMask;
@@ -11,7 +11,7 @@ public class PlayerDetection : MonoBehaviour
     public EnemyMovement EnemyMovementScript;
 
     // movement speed
-    public float Speed = 2.5f;
+    public float Speed = 2.0f;
 
     // persecution time, tells for how much time the enemy will follow the player direction
     public float MaxPersecutionTime = 2.0f;
@@ -28,7 +28,7 @@ public class PlayerDetection : MonoBehaviour
     {
         // sphere ray cast layer
         this.PlayerMask = LayerMask.GetMask("Player");
-        _directionToPlayer = new Vector3(0.0f, 0.0f, 0.0f);
+        _directionToPlayer = new Vector3();
 		InitialY = transform.position.y;
 
     }
@@ -41,7 +41,6 @@ public class PlayerDetection : MonoBehaviour
 
             // move to player
 	        this.transform.position += _directionToPlayer * Speed * Time.deltaTime;
-	        this.transform.position.Set(transform.position.x, InitialY, transform.position.y);
             // reset values on end of following time
 	        if (_timeFollowing >= _followingTimeToSpend)
 	        {
@@ -63,9 +62,8 @@ public class PlayerDetection : MonoBehaviour
             this._timeFollowing = 0.0f;
             this._followingTimeToSpend = this.MaxPersecutionTime*Random.Range(0.0f, 1.0f);
             // get direction to player
-            _directionToPlayer = _player.transform.position - this.transform.position;
+            _directionToPlayer = (_player.transform.position - this.transform.position).normalized;
 			_directionToPlayer.y = InitialY;
-            _directionToPlayer = _directionToPlayer.normalized;
 
         }
     }
