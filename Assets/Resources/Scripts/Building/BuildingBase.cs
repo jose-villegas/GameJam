@@ -15,6 +15,8 @@ public class BuildingBase : MonoBehaviour
     public LayerMask CitizensLayer;
     public LayerMask FlyingCitizensLayer;
 
+	public AudioClip HostedEffect;
+
     void Start()
     {
         CitizensLayer = LayerMask.GetMask("Civilians");
@@ -53,6 +55,8 @@ public class BuildingBase : MonoBehaviour
 
 		// Hide this resident
 		newResident.Hide (this.transform);
+
+		audio.PlayOneShot (HostedEffect);
 
         // Depending on build type we assign the player status a current bonus
         if (BuildType == BuildingType.Defense)
