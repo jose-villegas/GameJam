@@ -13,10 +13,13 @@ public class AutoRotateMaterial : MonoBehaviour {
 		int index = 0;
 		while(GameManager.Instance.GameState == GameManager.GameStatus.Playing)
 		{
-			gameObject.renderer.material.mainTexture = TEXTURES[index];
-			index++;
-			if(index >= TEXTURES.Length)
-				index = 0;
+			if(TEXTURES.Length > 0)
+			{
+				gameObject.renderer.material.mainTexture = TEXTURES[index];
+				index++;
+				if(index >= TEXTURES.Length)
+					index = 0;
+			}
 			yield return new WaitForSeconds(0.5f);
 		}
 	}
