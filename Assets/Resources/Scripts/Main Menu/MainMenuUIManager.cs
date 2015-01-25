@@ -45,6 +45,7 @@ public class MainMenuUIManager : MonoBehaviour {
 	/// <param name="choice">Choice.</param>
 	public void GoToGame(int choice)
 	{
+		PlayerPrefs.SetInt ("GENDER", choice);
 		if(choice == 0)
 		{
 			PuntualAudio.PlayOneShot(Woman,2.0f);
