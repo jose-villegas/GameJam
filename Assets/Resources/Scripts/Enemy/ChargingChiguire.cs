@@ -21,7 +21,7 @@ public class ChargingChiguire : MonoBehaviour {
 
     public float StartChargingDistance = 5.0f;
     public float DistanceToPlayer;
-    public GameObject Player;
+    private GameObject Player;
 
     private CharacterController _Character;
     private bool stopMovement = false;
@@ -107,6 +107,9 @@ public class ChargingChiguire : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate()
     {
+		if(GameManager.Instance.Player == null) return;
+		Player = GameManager.Instance.Player.gameObject;
+
         if (stopMovement) return;
 
         DistanceToPlayer = (Player.transform.position - transform.position).sqrMagnitude;
