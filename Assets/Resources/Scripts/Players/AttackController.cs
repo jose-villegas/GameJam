@@ -79,8 +79,8 @@ public class AttackController : MonoBehaviour {
 		playerToThrow.transform.DOPath (new Vector3[] {
 						middlePosition,
 						finalPosition},
-						ThrowTime, PathType.CatmullRom, PathMode.Full3D,5)
-						.SetEase(ThrowEase)
+						ThrowTime, PathType.CatmullRom, PathMode.Full3D, 5)
+						.SetEase (ThrowEase).SetOptions (AxisConstraint.None, AxisConstraint.X)
 						.OnComplete(()=>RestoreThrowedPlayer(playerToThrow))
 						.OnRewind(()=>RestoreThrowedPlayer(playerToThrow));
 
