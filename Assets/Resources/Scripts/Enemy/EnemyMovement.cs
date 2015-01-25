@@ -19,6 +19,7 @@ public class EnemyMovement : MonoBehaviour
 
 
 	private float InitialY;
+
     private void ChangeWalkingDirection()
     {
         // Assign a new random direction
