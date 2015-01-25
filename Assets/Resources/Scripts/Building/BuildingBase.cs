@@ -68,7 +68,8 @@ public class BuildingBase : MonoBehaviour
         // Depending on build type we assign the player status a current bonus
         if (BuildType == BuildingType.Defense)
         {
-            this.PlayerBonus.ActivateDefenseStatus();
+			if (this.Residents.Count >= this.MaxResidents)
+          	  this.PlayerBonus.ActivateDefenseStatus();
         }
         else if (BuildType == BuildingType.TurboSpeed)
         {
