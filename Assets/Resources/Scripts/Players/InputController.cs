@@ -36,6 +36,9 @@ public class InputController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (GameManager.Instance == null || GameManager.Instance.GameState != GameManager.GameStatus.Playing)
+						return;
+
 		// Catch player input
 		CatchGamePlayInput();
 

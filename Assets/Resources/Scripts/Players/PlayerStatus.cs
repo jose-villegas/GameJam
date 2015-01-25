@@ -76,8 +76,8 @@ public class PlayerStatus : MonoBehaviour
 
     public void ReduceHealth(float value)
     {
-		Debug.Log ("DAMAGE");
-
+		if (GameManager.Instance.GameState != GameManager.GameStatus.Playing)
+						return;
         // defense status protects the player for the next incoming hit, then loses this status
         if (this._defenseStatusActive)
         {
@@ -88,7 +88,7 @@ public class PlayerStatus : MonoBehaviour
 
 		// Check if the player is killed
 		if (_health <= 0f)
-			GameManager.Instance.EndGame ();
+			GameManager.Instance.EndStage();
     }
 
     public void RecoverHealth(float value)
