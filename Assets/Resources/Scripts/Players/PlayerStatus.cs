@@ -15,6 +15,7 @@ public class PlayerStatus : MonoBehaviour
     // turbo speed status adds to the player add
     private float _turboSpeed = 0.0f;
     public float MaxTurboSpeed = 30.0f;
+	public ParticleSystem SHIELD;
 
     private float _health;
 
@@ -31,6 +32,7 @@ public class PlayerStatus : MonoBehaviour
     public void ActivateDefenseStatus()
     {
         this._defenseStatusActive = true;
+		SHIELD.gameObject.SetActive (true);
     }
 
     public bool IsDefenseStatusActive()
@@ -90,6 +92,7 @@ public class PlayerStatus : MonoBehaviour
         // defense status protects the player for the next incoming hit, then loses this status
         if (this._defenseStatusActive)
         {
+			SHIELD.gameObject.SetActive (false);
             this._defenseStatusActive = false; return;
         }
 
