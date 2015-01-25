@@ -82,6 +82,9 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	void LateUpdate()
 	{
+		if(Input.GetKeyDown(KeyCode.G))
+			EndStage();
+
 		if (GameState != GameStatus.Playing)
 			return; 
 
@@ -142,7 +145,8 @@ public class GameManager : MonoBehaviour {
 		}
 
 		// Initialize UI
-		UIManager.Instance.Initialize ();
+		if(Application.loadedLevel == 2)
+			UIManager.Instance.Initialize ();
 		
 		// Initialize camera
 		PlayerCamera.Initialize ();
