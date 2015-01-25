@@ -21,17 +21,20 @@ public class ScoreManager : MonoBehaviour {
         return this._highScorer;
     }
 
-    void AddToScore(float value)
+    public void AddToScore(float value)
     {
         CurrentScore += value * this.ScoreMultiplier;
     }
 
-    void SaveHighScore(string scorer)
+    public void SaveHighScore()
     {
-        if (!(this.CurrentScore > this.HighScore)) return;
+       // if (!(this.CurrentScore > this.HighScore)) return;
 
-        PlayerPrefs.SetFloat("High Score", this.HighScore);
-        PlayerPrefs.SetString("High Scorer", scorer);
+		string PlayerName = PlayerPrefs.GetString ("Player Name", "DEFAULT PLAYER");
+
+        //PlayerPrefs.SetFloat("High Score", this.HighScore);
+		PlayerPrefs.SetFloat("High Score", this.CurrentScore);
+		PlayerPrefs.SetString("High Scorer", PlayerName);
     }
 
 	ScoreManager()

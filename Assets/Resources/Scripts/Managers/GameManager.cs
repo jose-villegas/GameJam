@@ -51,11 +51,6 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// Destroy this game object if this is the main menu
-		if (Application.loadedLevelName == MainMenu) {
-			Destroy(this.gameObject);
-			return;
-		}
 
 		// Avoid this class destruction when in stage transition
 		DontDestroyOnLoad (this.gameObject);
@@ -75,7 +70,6 @@ public class GameManager : MonoBehaviour {
 		if (CurrentStage > 0 && Application.loadedLevelName != ScoreScene) {
 			BeginStage();
 		}
-		
 	}
 
 	/// <summary>
@@ -83,12 +77,22 @@ public class GameManager : MonoBehaviour {
 	/// </summary>
 	void Update()
 	{
+		if (GameState != GameStatus.Playing)
+			return; 
+
 		// Check win conditions
+		int fullBuildingsCounter = 0;
 		foreach(BuildingBase building in requiredBuildingsToWin)
 		{
+			if(building.IsBuildingFull())
+				fullBuildingsCounter++;
 
+			if(fullBuildingsCounter >= requiredBuildingsToWin.Count)
+			{
+				EndStage();
+				return;
+			}
 		}
-
 	}
 
 	/// <summary>
@@ -137,8 +141,12 @@ public class GameManager : MonoBehaviour {
 		// Set the end game flag
 		GameState = GameStatus.Ended;
 
+		// Store score
+		ScoreManager.Instance.AddToScore (MaxStageTime - m_currentTime);
+		ScoreManager.Instance.SaveHighScore ();
+
 		// Summon next stage if this isn't last
-		if (CurrentStage < Stages.Length) {
+		if (CurrentStage + 1 < Stages.Length) {
 			// Update stage counter
 			CurrentStage++;
 			GameState = GameStatus.Paused;
@@ -157,7 +165,8 @@ public class GameManager : MonoBehaviour {
 	{
 		// Set safety conrol flag
 		GameState = GameStatus.Ended;
-
+		// Destroy the cameras
+		Destroy (this.gameObject);
 		// Load score screen
 		Application.LoadLevel(ScoreScene);
 	}
