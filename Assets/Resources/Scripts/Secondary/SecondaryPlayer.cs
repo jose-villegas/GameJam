@@ -8,6 +8,11 @@ public class SecondaryPlayer : MonoBehaviour {
 
 	private Sequence HelpSequence;
 
+	// Audio FX
+	public float MinRandomTime = 10.0f;
+	public float MaxRandomTime = 20.0f;
+	public AudioClip WhatDoWeDoKnow;
+
 	// Use this for initialization
 	void Start () {
 		initialParent = transform.parent;
@@ -21,6 +26,20 @@ public class SecondaryPlayer : MonoBehaviour {
 		HelpSequence.SetLoops (-1);
 
 		StartHelpAnimationSequence ();
+
+		if(WhatDoWeDoKnow != null)
+			StartCoroutine ("WhatDoWeDoNow");
+	}
+	/// <summary>
+	/// Whats the do we do now.
+	/// </summary>
+	/// <returns>The do we do now.</returns>
+	IEnumerator WhatDoWeDoNow (){
+		while(GameManager.Instance.GameState != GameManager.GameStatus.Ended)
+		{
+			yield return new WaitForSeconds (Random.Range(MinRandomTime,MaxRandomTime ));	
+			audio.PlayOneShot(WhatDoWeDoKnow);
+		}
 	}
 
 	/// <summary>

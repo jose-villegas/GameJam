@@ -7,9 +7,18 @@ public class MainMenuUIManager : MonoBehaviour {
 	[Range(0.1f,2.0f)]
 	public float TransitionSpeed = 0.5f;
 
+	// Sound FX
+	public AudioSource PuntualAudio;
+	public AudioClip SelectYourCharacter;
+
 	// Use this for initialization
 	void Start () {
-	
+	}
+
+	IEnumerator DelayedAudio(AudioClip clip)
+	{
+		yield return new WaitForSeconds(TransitionSpeed/2.0f);
+		PuntualAudio.PlayOneShot(clip,1.9f);
 	}
 
 	/// <summary>
@@ -27,6 +36,7 @@ public class MainMenuUIManager : MonoBehaviour {
 	public void GoToPreGameMenu()
 	{
 		Camera.main.transform.DOLocalMoveY (-1200, TransitionSpeed);
+		StartCoroutine ("DelayedAudio", SelectYourCharacter);
 	}
 
 	public void GoToMainMenu()

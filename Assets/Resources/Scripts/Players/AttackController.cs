@@ -11,6 +11,11 @@ public class AttackController : MonoBehaviour {
 	public List<SecondaryPlayer> holdedPlayers = new List<SecondaryPlayer>();
 	public Transform holdedPlayersParent;
 
+	// Audio FX
+	public AudioClip ThrowFX;
+	[Range(0,1)]
+	public float ThrowVolume = 0.4f;
+
 	// Throw Parameters
 	[Range(1,20)]
 	public float ThrowDistance = 5.0f;
@@ -79,6 +84,8 @@ public class AttackController : MonoBehaviour {
 						.SetEase(ThrowEase)
 						.OnComplete(()=>RestoreThrowedPlayer(playerToThrow))
 						.OnRewind(()=>RestoreThrowedPlayer(playerToThrow));
+
+		audio.PlayOneShot (ThrowFX,ThrowVolume);
 		/*
 		playerToThrow.transform.DOMove (playerToThrow.transform.position + throwDirection.normalized * ThrowDistance,ThrowTime)
 							   .SetEase(ThrowEase)
