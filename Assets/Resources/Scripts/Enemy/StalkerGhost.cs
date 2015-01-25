@@ -16,7 +16,7 @@ public class StalkerGhost : MonoBehaviour {
 
     public float StartFollowingDistance = 5.0f;
     public float DistanceToPlayer;
-    public GameObject Player;
+    private GameObject Player;
 
     private float _initialY;
 
@@ -32,6 +32,9 @@ public class StalkerGhost : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (GameManager.Instance == null || GameManager.Instance.GameState != GameManager.GameStatus.Playing)
+						return;
+		Player = GameManager.Instance.Player.gameObject;
         DistanceToPlayer = (Player.transform.position - transform.position).sqrMagnitude;
 
 	    if (DistanceToPlayer <= StartFollowingDistance * StartFollowingDistance)
