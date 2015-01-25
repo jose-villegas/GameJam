@@ -28,7 +28,15 @@ public class PlayerStatus : MonoBehaviour
         this._health = this.MaxHealth;
     }
 
+    public void ActivateDefenseStatus()
+    {
+        this._defenseStatusActive = true;
+    }
 
+    public bool IsDefenseStatusActive()
+    {
+        return this._defenseStatusActive;
+    }
 
 	// Use this for initialization
 	public void Initialize() {
@@ -45,12 +53,12 @@ public class PlayerStatus : MonoBehaviour
 		this._attackController.Initialize ();
 	}
 
-    void AddToTurboSpeed(float value)
+    public void AddToTurboSpeed(float value)
     {
         this._turboSpeed += Mathf.Min(value, MaxTurboSpeed);
     }
 
-    float GetCurrentTurboSpeed()
+    public float GetCurrentTurboSpeed()
     {
         return this._turboSpeed;
     }
@@ -77,7 +85,7 @@ public class PlayerStatus : MonoBehaviour
 			GameManager.Instance.EndGame ();
     }
 
-    void RecoverHealth(float value)
+    public void RecoverHealth(float value)
     {
         this._health = Mathf.Clamp(this._health + value, this.MinHealth, this.MaxHealth);
     }
