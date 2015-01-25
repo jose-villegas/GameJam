@@ -36,10 +36,12 @@ public class AttackController : MonoBehaviour {
 	/// <param name="player">Player.</param>
 	public void holdNewSecondaryPlayer(SecondaryPlayer player)
 	{
-		if (holdedPlayers.Count + 1 > UIManager.Instance.CivilianButtons.Length)
+		if (holdedPlayers.Count + 1 > 6)
 			return;
 
 		// Add player to the list
+		if (holdedPlayers.Contains (player))
+						return;
 		holdedPlayers.Add (player);
 		player.Hide (holdedPlayersParent);
 	}

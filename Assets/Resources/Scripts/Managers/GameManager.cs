@@ -19,11 +19,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	// Stages to load
-	public string[] Stages = new string[0];
 	public string MainMenu = "Main Menu";
 	public string ScoreScene = "Score Scene";
-	public int CurrentStage = 0;
-
 	// Buildings
 	public BuildingBase[] buildings;
 	public List<BuildingBase> requiredBuildingsToWin = new List<BuildingBase> ();
@@ -55,8 +52,6 @@ public class GameManager : MonoBehaviour {
 		// Avoid this class destruction when in stage transition
 		DontDestroyOnLoad (this.gameObject);
 
-
-
 		// Begin game timer
 		BeginStage ();
 	}
@@ -67,7 +62,7 @@ public class GameManager : MonoBehaviour {
 	/// <param name="level">Level.</param>
 	void OnLevelWasLoaded(int level) {
 		// Only execute the initialization if this isnt the first map
-		if (CurrentStage > 0 && Application.loadedLevelName != ScoreScene) {
+		if (level > 0 && Application.loadedLevelName != ScoreScene) {
 			BeginStage();
 		}
 	}
@@ -75,7 +70,7 @@ public class GameManager : MonoBehaviour {
 	/// <summary>
 	/// Update this instance.
 	/// </summary>
-	void Update()
+	void LateUpdate()
 	{
 		if (GameState != GameStatus.Playing)
 			return; 
@@ -105,6 +100,7 @@ public class GameManager : MonoBehaviour {
 		Player.Initialize ();
 		
 		// Initialize this stage buildings
+		requiredBuildingsToWin.Clear ();
 		buildings = FindObjectsOfType<BuildingBase> ();
 		foreach(BuildingBase building in buildings)
 		{
@@ -146,12 +142,11 @@ public class GameManager : MonoBehaviour {
 		ScoreManager.Instance.SaveHighScore ();
 
 		// Summon next stage if this isn't last
-		if (CurrentStage + 1 < Stages.Length) {
-			// Update stage counter
-			CurrentStage++;
+		int NextStage = Application.loadedLevel + 1;
+		if (NextStage <= 4) {
 			GameState = GameStatus.Paused;
 			// Load next stage
-			Application.LoadLevel(Stages[CurrentStage]);
+			Application.LoadLevel(NextStage);
 		}
 		// If this is the last stage, end the game
 		else
@@ -167,7 +162,7 @@ public class GameManager : MonoBehaviour {
 		// Destroy the cameras
 		Destroy (this.gameObject);
 		// Load score screen
-		Application.LoadLevel(MainMenu);
+		Application.LoadLevel(0);
 	}
 
 	// End of the game and go to the score screen
