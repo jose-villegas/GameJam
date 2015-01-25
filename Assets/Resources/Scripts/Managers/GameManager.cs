@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 	// Stages to load
 	public string MainMenu = "Main Menu";
 	public string ScoreScene = "Score Scene";
+	public int maxScene = 5;
 	// Buildings
 	public BuildingBase[] buildings;
 	public List<BuildingBase> requiredBuildingsToWin = new List<BuildingBase> ();
@@ -143,7 +144,7 @@ public class GameManager : MonoBehaviour {
 
 		// Summon next stage if this isn't last
 		int NextStage = Application.loadedLevel + 1;
-		if (NextStage <= 4) {
+		if (NextStage <= maxScene) {
 			GameState = GameStatus.Paused;
 			// Load next stage
 			Application.LoadLevel(NextStage);

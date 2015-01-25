@@ -24,6 +24,9 @@ public class AttackController : MonoBehaviour {
 	public int ThrowLayer;
 	public Ease ThrowEase = Ease.Linear;
 
+	// Civilians max slow force
+	public float maxSlowForce = 0.5f;
+
 	// Use this for initialization
 	public void Initialize () {
 		if (!holdedPlayersParent)
