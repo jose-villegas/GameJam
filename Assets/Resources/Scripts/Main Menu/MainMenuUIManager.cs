@@ -10,6 +10,13 @@ public class MainMenuUIManager : MonoBehaviour {
 	// Scene management
 	public string MapOne = "Map 1";
 
+	public Transform top;
+	public Transform bot;
+	public Transform left;
+	public Transform right;
+
+	public Ease easeness = Ease.OutBounce;
+
 	// Sound FX
 	public AudioSource PuntualAudio;
 	public AudioClip SelectYourCharacter;
@@ -63,7 +70,7 @@ public class MainMenuUIManager : MonoBehaviour {
 	/// </summary>
 	public void GoToPreGameMenu()
 	{
-		Camera.main.transform.DOLocalMoveY (-1200, TransitionSpeed);
+		Camera.main.transform.DOLocalMoveY (-(top.transform.position.y - bot.transform.position.y)/2.0f, TransitionSpeed).SetEase(easeness);
 		StartCoroutine ("DelayedAudio", SelectYourCharacter);
 		PlayClick ();
 
@@ -71,26 +78,26 @@ public class MainMenuUIManager : MonoBehaviour {
 
 	public void GoToMainMenu()
 	{
-		Camera.main.transform.DOMove (new Vector3 (0, 0, Camera.main.transform.position.z), TransitionSpeed);
+		Camera.main.transform.DOMove (new Vector3 (0, 0, Camera.main.transform.position.z), TransitionSpeed).SetEase(easeness);
 		PlayClick ();
 	}
 
 	public void GoToPlotMenu()
 	{
-		Camera.main.transform.DOLocalMoveX (1200, TransitionSpeed);
+		Camera.main.transform.DOLocalMoveX (-(left.transform.position.x - right.transform.position.x)/2.0f, TransitionSpeed).SetEase(easeness);
 		PlayClick ();
 	}
 
 	public void GoToInstructionsMenu()
 	{
-		Camera.main.transform.DOLocalMoveX (-1200, TransitionSpeed);
+		Camera.main.transform.DOLocalMoveX ((left.transform.position.x - right.transform.position.x)/2.0f, TransitionSpeed).SetEase(easeness);
 		PlayClick ();
 
 	}
 
 	public void GoToCreditsMenu()
 	{
-		Camera.main.transform.DOLocalMoveY (1200, TransitionSpeed);
+		Camera.main.transform.DOLocalMoveY ((top.transform.position.y - bot.transform.position.y)/2.0f, TransitionSpeed).SetEase(easeness);
 		PlayClick ();
 
 	}

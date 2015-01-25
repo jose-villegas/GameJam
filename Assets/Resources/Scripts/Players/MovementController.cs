@@ -15,12 +15,14 @@ public class MovementController : MonoBehaviour {
 	// Character controller variables
 	private CharacterController m_CharController;
 	private CollisionController m_Collision;
+	private PlayerStatus m_Status;
 
 	// Use this for initialization
-	public void Initialize (CollisionController collision) {
+	public void Initialize (CollisionController collision,PlayerStatus status) {
 		// Get Unity's character controller
 		m_CharController = GetComponent<CharacterController>();
 		m_Collision = collision;
+		m_Status = status;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +45,7 @@ public class MovementController : MonoBehaviour {
 		m_TargetWorldPos = new Vector3(XPos,0, ZPos);
 		
 		// Get the required speed for this movement
-		m_CurrentSpeed = MaxMovementSpeed * Mathf.Clamp(Vector3.Distance(transform.position, m_TargetWorldPos) / maxSpeedDistance,0,1);
+		m_CurrentSpeed = (MaxMovementSpeed + m_Status.GetCurrentTurboSpeed())* Mathf.Clamp(Vector3.Distance(transform.position, m_TargetWorldPos) / maxSpeedDistance,0,1);
 		
 		// Get the normalized player direction
 		m_MoveDirection = GetTargetDirection(m_TargetWorldPos).normalized;

@@ -47,7 +47,7 @@ public class PlayerStatus : MonoBehaviour
 		this._attackController = GetComponent<AttackController> ();
 
 		// Initialize player contollers
-		this._movementController.Initialize(_collisionController);        
+		this._movementController.Initialize(_collisionController,this);        
 		this._inputController.Initialize(this._movementController,this._attackController);
 		this._collisionController.Initialize (this,_attackController);
 		this._attackController.Initialize ();
@@ -88,7 +88,7 @@ public class PlayerStatus : MonoBehaviour
 
 		// Check if the player is killed
 		if (_health <= 0f)
-			GameManager.Instance.EndStage();
+			GameManager.Instance.Killed();
     }
 
     public void RecoverHealth(float value)

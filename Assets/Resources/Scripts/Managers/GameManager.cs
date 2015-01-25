@@ -160,6 +160,16 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	public void Killed()
+	{
+		// Set safety conrol flag
+		GameState = GameStatus.Ended;
+		// Destroy the cameras
+		Destroy (this.gameObject);
+		// Load score screen
+		Application.LoadLevel(MainMenu);
+	}
+
 	// End of the game and go to the score screen
 	public void EndGame()
 	{
