@@ -20,7 +20,10 @@ public class GameManager : MonoBehaviour {
 
 	// Player Sprite
 	public Texture2D MALE;
+	public Texture2D MALE2;
 	public Texture2D FEMALE;
+	public Texture2D FEMALE2;
+
 
 	// Camera effect
 	private TwirlEffect _twirl;
@@ -111,15 +114,23 @@ public class GameManager : MonoBehaviour {
 		// Get player gender choice
 		int Gender = PlayerPrefs.GetInt ("GENDER", 0);
 		Texture2D PlayerSprite;
+		Texture2D PlayerSprite1;
 		if(Gender == 0)
+		{
 			PlayerSprite = FEMALE;
+			PlayerSprite1= FEMALE2;
+		}
 		else
+		{
 			PlayerSprite = MALE;
-
+			PlayerSprite1 = MALE2;
+		}
 		// Assign player texture
-		Player.playerGameObject.renderer.material.mainTexture = PlayerSprite;
+		AutoRotateMaterial SPRITEANIMATOR = Player.playerGameObject.GetComponent<AutoRotateMaterial> ();
+		SPRITEANIMATOR.TEXTURES = new Texture2D[2];
+		SPRITEANIMATOR.TEXTURES [0] = PlayerSprite;
+		SPRITEANIMATOR.TEXTURES [1] = PlayerSprite1;
 
-		
 		// Initialize this stage buildings
 		requiredBuildingsToWin.Clear ();
 		buildings = FindObjectsOfType<BuildingBase> ();
