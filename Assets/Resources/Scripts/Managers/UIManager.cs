@@ -44,6 +44,10 @@ public class UIManager : MonoBehaviour {
 	/// </summary>
 	public void UpdateCivilians()
 	{
+
+		if (GameManager.Instance.Player == null)
+						return;
+
 		// Get secondary players currently holded
 		SecondaryPlayer[] secondaryPlayers = GameManager.Instance.Player.GetSecondaryPlayers ();
 
