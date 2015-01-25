@@ -79,6 +79,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// Update this instance.
+	/// </summary>
+	void Update()
+	{
+		// Check win conditions
+		foreach(BuildingBase building in requiredBuildingsToWin)
+		{
+
+		}
+
+	}
+
+	/// <summary>
 	/// Begins the current stage.
 	/// </summary>
 	private void BeginStage()
@@ -107,6 +120,9 @@ public class GameManager : MonoBehaviour {
 		// Begin stage timer
 		StopCoroutine("MatchTimer");
 		StartCoroutine("MatchTimer");
+
+		// Set start flag
+		GameState = GameStatus.Playing;
 	}
 
 	/// <summary>
@@ -125,6 +141,7 @@ public class GameManager : MonoBehaviour {
 		if (CurrentStage < Stages.Length) {
 			// Update stage counter
 			CurrentStage++;
+			GameState = GameStatus.Paused;
 			// Load next stage
 			Application.LoadLevel(Stages[CurrentStage]);
 		}
