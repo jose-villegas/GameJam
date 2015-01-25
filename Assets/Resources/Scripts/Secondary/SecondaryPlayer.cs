@@ -13,11 +13,13 @@ public class SecondaryPlayer : MonoBehaviour {
 	public float MaxRandomTime = 20.0f;
 	public AudioClip WhatDoWeDoKnow;
 
+	private Quaternion pastQuaternion;
+
 	// Use this for initialization
 	void Start () {
 		initialParent = transform.parent;
 		Layer = gameObject.layer;
-
+		pastQuaternion = transform.rotation;
 		// Create help animaton sequence
 		HelpSequence = DOTween.Sequence ();
 		float InitialLocalY = transform.localPosition.y;
@@ -30,6 +32,12 @@ public class SecondaryPlayer : MonoBehaviour {
 		if(WhatDoWeDoKnow != null)
 			StartCoroutine ("WhatDoWeDoNow");
 	}
+
+	void LateUpdate()
+	{
+		transform.rotation = pastQuaternion;
+	}
+
 	/// <summary>
 	/// Whats the do we do now.
 	/// </summary>
