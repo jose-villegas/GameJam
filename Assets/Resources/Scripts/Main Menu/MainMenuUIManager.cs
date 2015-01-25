@@ -23,6 +23,7 @@ public class MainMenuUIManager : MonoBehaviour {
 	public AudioClip Click;
 	public AudioClip Woman;
 	public AudioClip Man;
+	public AudioSource Narration;
 
 	// Use this for initialization
 	void Start () {
@@ -34,8 +35,16 @@ public class MainMenuUIManager : MonoBehaviour {
 		PuntualAudio.PlayOneShot(clip,1.9f);
 	}
 
+	IEnumerator DelayedNarration()
+	{
+		yield return new WaitForSeconds(TransitionSpeed/2.0f);
+		Narration.Stop ();
+		Narration.Play ();
+	}
+
 	private void PlayClick()
 	{
+		Narration.Stop ();
 		PuntualAudio.PlayOneShot (Click, 1.0f);
 	}
 
@@ -87,6 +96,8 @@ public class MainMenuUIManager : MonoBehaviour {
 	{
 		Camera.main.transform.DOLocalMoveX (-(left.transform.position.x - right.transform.position.x)/2.0f, TransitionSpeed).SetEase(easeness);
 		PlayClick ();
+		StartCoroutine ("DelayedNarration");
+
 	}
 
 	public void GoToInstructionsMenu()

@@ -46,7 +46,7 @@ public class MovementController : MonoBehaviour {
 		
 		// Get the required speed for this movement
 		m_CurrentSpeed = (MaxMovementSpeed + m_Status.GetCurrentTurboSpeed())* m_Status.GetCurrentCivilianSlowdown() * Mathf.Clamp(Vector3.Distance(transform.position, m_TargetWorldPos) / maxSpeedDistance,0,1);
-		
+
 		// Get the normalized player direction
 		m_MoveDirection = GetTargetDirection(m_TargetWorldPos).normalized;
 		m_MoveDirection.y = 0;
