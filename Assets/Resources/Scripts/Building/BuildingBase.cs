@@ -69,6 +69,7 @@ public class BuildingBase : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        Debug.Log(collider);
         if (FlyingCitizensLayer == (FlyingCitizensLayer | (1 << collider.gameObject.layer)) ||
             CitizensLayer == (CitizensLayer | (1 << collider.gameObject.layer)))
         {
