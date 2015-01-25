@@ -7,21 +7,22 @@ public class EnemyMovement : MonoBehaviour
 
     public float Speed = 2.0f;
 
-    public float MaxChangeDirectionFrequency = 3.0f;
+    public float MaxChangeDirectionFrequency = 2.0f;
 
-    public float MaxStayStillChangeFrequency = 5.0f;
-    public float MaxStayStillTime = 5.0f;
+    public float MaxStayStillChangeFrequency = 3.0f;
+    public float MaxStayStillTime = 3.0f;
     
-    public Vector3 _randomWalkingDirection;
-    public bool _stayStill = true;
+    public Vector3 RandomWalkingDirection;
+    public bool StayStill = true;
+    public bool DisableRandomMovement = false;
 
 	private CharacterController _Character;
 
     private void ChangeWalkingDirection()
     {
         // Assign a new random direction
-        _randomWalkingDirection = Random.insideUnitSphere * Speed;
-		_randomWalkingDirection.y = 0;
+        RandomWalkingDirection = Random.insideUnitSphere * Speed;
+		RandomWalkingDirection.y = 0;
 
         // Invoke again rand frequency
         Invoke("ChangeWalkingDirection", MaxChangeDirectionFrequency * Random.Range(0.0f, 1.0f));
@@ -30,11 +31,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void ChangeToStayStill()
     {
-        this._stayStill = !this._stayStill;
+        this.StayStill = !this.StayStill;
         // add to next invokation time if staying still
         float sumToTime = 0.0f;
 
-        if (this._stayStill)
+        if (this.StayStill)
         {
             sumToTime += MaxStayStillTime*Random.Range(0.0f, 1.0f);
         }
@@ -52,9 +53,9 @@ public class EnemyMovement : MonoBehaviour
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		if (!this._stayStill && _Character != null && GameManager.Instance.GameState == GameManager.GameStatus.Playing)
+		if (!DisableRandomMovement && !this.StayStill && _Character != null && GameManager.Instance.GameState == GameManager.GameStatus.Playing)
 	    {
-			_Character.Move(this._randomWalkingDirection.normalized * Time.deltaTime * Speed);
+			_Character.Move(this.RandomWalkingDirection.normalized * Time.deltaTime * Speed);
 	    }   
 	}
 }

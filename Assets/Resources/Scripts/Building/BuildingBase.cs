@@ -15,6 +15,12 @@ public class BuildingBase : MonoBehaviour
     public LayerMask CitizensLayer;
     public LayerMask FlyingCitizensLayer;
 
+    void Start()
+    {
+        CitizensLayer = LayerMask.GetMask("Civilians");
+        FlyingCitizensLayer = LayerMask.GetMask("Throwed Player");
+    }
+
     // every building has a collection of current living residents
     protected List<SecondaryPlayer> Residents;
     // direct access to player status
