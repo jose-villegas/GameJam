@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class PlayerStatus : MonoBehaviour
 {
+	// Player Avatar
+	public GameObject playerGameObject;
+
 	// Player Controllers
 	private InputController _inputController;
 	private MovementController _movementController;
@@ -51,6 +54,8 @@ public class PlayerStatus : MonoBehaviour
 		this._inputController.Initialize(this._movementController,this._attackController);
 		this._collisionController.Initialize (this,_attackController);
 		this._attackController.Initialize ();
+
+		playerGameObject.transform.parent = null;
 	}
 
 
@@ -80,7 +85,7 @@ public class PlayerStatus : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-	
+		playerGameObject.transform.position = new Vector3(transform.position.x,playerGameObject.transform.position.y,transform.position.z);
 	}
 
     public void ReduceHealth(float value)
