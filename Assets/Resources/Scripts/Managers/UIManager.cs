@@ -60,6 +60,9 @@ public class UIManager : MonoBehaviour {
 	/// </summary>
 	void Update()
 	{
+		if(GameManager.Instance.GameState != GameManager.GameStatus.Playing)return;
+
+
 		// Update game timer
 		TimerLabel.text = GameManager.Instance.CurrentTime;
 

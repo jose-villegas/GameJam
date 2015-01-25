@@ -17,10 +17,15 @@ public class BuildingBase : MonoBehaviour
 
 	public AudioClip HostedEffect;
 
+	public ParticleSystem[] PartycleSystems;
+
     void Start()
     {
         CitizensLayer = LayerMask.GetMask("Civilians");
         FlyingCitizensLayer = LayerMask.GetMask("Throwed Player");
+
+		foreach (ParticleSystem ps in PartycleSystems)
+			ps.enableEmission = false;
     }
 
     // every building has a collection of current living residents
@@ -51,6 +56,8 @@ public class BuildingBase : MonoBehaviour
     {
         if (this.Residents.Count >= this.MaxResidents) return;
 
+
+		PartycleSystems [this.Residents.Count].enableEmission = true;
         this.Residents.Add(newResident);
 
 		// Hide this resident

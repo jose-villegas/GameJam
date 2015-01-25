@@ -7,6 +7,9 @@ public class MainMenuUIManager : MonoBehaviour {
 	[Range(0.1f,2.0f)]
 	public float TransitionSpeed = 0.5f;
 
+	// Scene management
+	public string MapOne = "Map 1";
+
 	// Sound FX
 	public AudioSource PuntualAudio;
 	public AudioClip SelectYourCharacter;
@@ -36,10 +39,23 @@ public class MainMenuUIManager : MonoBehaviour {
 	public void GoToGame(int choice)
 	{
 		if(choice == 0)
+		{
 			PuntualAudio.PlayOneShot(Woman,2.0f);
+			StartCoroutine ("DelayedGame",Woman);
+		}
 		else
+		{
 			PuntualAudio.PlayOneShot(Man,2.0f);
+			StartCoroutine ("DelayedGame",Man);
+		}
 
+
+	}
+
+	IEnumerator DelayedGame(AudioClip prefx)
+	{
+		yield return new WaitForSeconds (prefx.length);
+		Application.LoadLevel (MapOne);
 	}
 
 	/// <summary>
