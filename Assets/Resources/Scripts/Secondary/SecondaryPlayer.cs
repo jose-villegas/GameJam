@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class SecondaryPlayer : MonoBehaviour {
 	private Transform initialParent;
@@ -12,6 +13,7 @@ public class SecondaryPlayer : MonoBehaviour {
 	public float MinRandomTime = 10.0f;
 	public float MaxRandomTime = 20.0f;
 	public AudioClip WhatDoWeDoKnow;
+	public Sprite CivilianSprite;
 
 	private Quaternion pastQuaternion;
 
