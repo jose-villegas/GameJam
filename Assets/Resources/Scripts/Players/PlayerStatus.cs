@@ -69,6 +69,15 @@ public class PlayerStatus : MonoBehaviour
         return this._turboSpeed;
     }
 
+	/// <summary>
+	/// Gets the current civilian slowdown.
+	/// </summary>
+	/// <returns>The current civilian slowdown.</returns>
+	public float GetCurrentCivilianSlowdown()
+	{
+		return 1.0f - _attackController.maxSlowForce * _attackController.holdedPlayers.Count / 6.0f;
+	}
+
 	// Update is called once per frame
 	void Update () {
 	
