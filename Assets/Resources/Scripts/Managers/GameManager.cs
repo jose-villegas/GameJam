@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using DG.Tweening;
 
 /// <summary>
 /// Game manager: Controls the main game flow
@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour {
 	{
 		_instance = this;
 	}
+	// Camera effect
+	private TwirlEffect _twirl;
+	public float TwirlTime = 2.0f;
 
 	// Stages to load
 	public string MainMenu = "Main Menu";
@@ -117,6 +120,7 @@ public class GameManager : MonoBehaviour {
 		
 		// Initialize camera
 		PlayerCamera.Initialize ();
+		_twirl = PlayerCamera.GetComponent<TwirlEffect> ();
 
 		// Begin stage timer
 		StopCoroutine("MatchTimer");
@@ -159,7 +163,14 @@ public class GameManager : MonoBehaviour {
 	public void Killed()
 	{
 		// Set safety conrol flag
-		GameState = GameStatus.Ended;
+		GameState = GameStatus.Ended;	
+		DOTween.To(()=> _twirl.angle, x=> _twirl.angle = x, 113, TwirlTime);
+		StartCoroutine ("DelayedKill");
+	}
+
+	IEnumerator DelayedKill()
+	{
+		yield return new WaitForSeconds (TwirlTime);
 		// Destroy the cameras
 		Destroy (this.gameObject);
 		// Load score screen
