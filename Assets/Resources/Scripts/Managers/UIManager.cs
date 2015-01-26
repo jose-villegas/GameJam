@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour {
 	// UI Reference
 	public Text TimerLabel;
 	public Button[] CivilianButtons = new Button[6];
+	public Image[] CivilianImages = new Image[6];
 
 	// Use this for initialization
 	public void Initialize () {
@@ -28,9 +29,13 @@ public class UIManager : MonoBehaviour {
 	/// </summary>
 	void DisableAllCivilianButtons()
 	{
+		int index = 0;
 		foreach(Button currentbutton in CivilianButtons)
 		{
 			currentbutton.interactable = false;
+			CivilianImages[index] = currentbutton.GetComponent<Image>();
+			CivilianImages[index].color = new Color(1,1,1,0);
+			index++;
 		}
 	}
 
@@ -46,10 +51,16 @@ public class UIManager : MonoBehaviour {
 		foreach (Button currentbutton in CivilianButtons) {
 			// Refresh buttons
 			if(secondaryPlayers.Length > index)
+			{
 				currentbutton.interactable = true;
+				CivilianImages[index].sprite = secondaryPlayers[index].CivilianSprite;
+				CivilianImages[index].color = new Color(1,1,1,1);
+			}
 			else
+			{
 				currentbutton.interactable = false;
-
+				CivilianImages[index].color = new Color(1,1,1,0);
+			}
 			// Update index
 			index++;
 		}
